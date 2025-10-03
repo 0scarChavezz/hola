@@ -32,21 +32,15 @@
         opacity: 0;
       }
     }
-    .screen {
+    .screen, .screen2 {
       display: none;
       justify-content: center;
       align-items: center;
-      height: 90vh;
+      min-height: 100vh;
       text-align: center;
       flex-direction: column;
-    }
-    .screen2 {
-      display: none;
-      justify-content: center;
-      align-items: center;
-      height: 200vh;
-      text-align: center;
-      flex-direction: column;
+      padding: 20px;
+      box-sizing: border-box;
     }
     .active {
       display: flex;
@@ -88,7 +82,7 @@
       width: 50%;
       max-width: 1000px;
       text-align: right;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-family: 'Comic Sans MS' sans-serif;
       line-height: 1.7;
       box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
     }
