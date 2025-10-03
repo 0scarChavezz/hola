@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Carta Secreta 2 by myeya</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: rgb(194, 197, 197); 
+      overflow-x: hidden;
+    }
+    .hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .heart {
+      position: absolute;
+      animation: fall linear forwards;
+      color: rgba(221, 81, 17, 0.6);
+    }
+    @keyframes fall {
+      to {
+        transform: translateY(100vh);
+        opacity: 0;
+      }
+    }
+    .screen {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 90vh;
+      text-align: center;
+      flex-direction: column;
+    }
+    .screen2 {
+      display: none;
+      justify-content: center;
+      align-items: center;
+      height: 200vh;
+      text-align: center;
+      flex-direction: column;
+    }
+    .active {
+      display: flex;
+    }
+    .password-screen {
+      flex-direction: column;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 60px);
+      gap: 10px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+    .key {
+      background-color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 20px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+    }
+    .key:hover {
+      background-color: #e6f0f5;
+      transform: translateY(-3px);
+    }
+    .input-display {
+      font-size: 24px;
+      margin-top: 20px;
+      letter-spacing: 8px;
+    }
+    .notepad {
+      background-color: #f9f9f9;
+      border: 4px solid #000000;
+      padding: 40px;
+      border-radius: 20px;
+      width: 50%;
+      max-width: 1000px;
+      text-align: right;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      line-height: 1.7;
+      box-shadow: 15px 15px 15px rgba(0,0,0,0.2);
+    }
+    .password-img {
+      width: 260px; 
+      height: 150px;
+      object-fit: cover;
+      border-radius: 15px;
+      box-shadow: 6px 6px 15px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+    }
+    .note-img {
+      width: 100%;
+      max-width: 450px;
+      height: auto;
+      border-radius: 15px;
+      margin-bottom: 15px;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+    }
+    .back-btn {
+      display: inline-block;
+      margin-top: 15px;
+      background-color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 4px 4px 8px rgba(0,0,0,0.15);
+      transition: all 0.2s ease;
+    }
+    .back-btn:hover {
+      background-color: #ded8d8;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body>
+<div class="hearts"></div>
+<div id="passwordScreen" class="screen password-screen active">
+<img src="https://acortar.link/el8Gwt" 
+     alt="Imagen decorativa" 
+     class="password-img" 
+     style="width: 300; height: auto;">
+  <h2>🔒 Ingresa la contraseña</h2>
+<h6 style="font-size: 12px; color: grey; margin-bottom: 0;"> Pista: Fecha cuando recibiste mis primera flores ... (dd/mm/aa)</h6>
+  <div class="input-display" id="inputDisplay">••••••</div>
+  <div class="keypad">
+    <button class="key" onclick="enterDigit('1')">1</button>
+    <button class="key" onclick="enterDigit('2')">2</button>
+    <button class="key" onclick="enterDigit('3')">3</button>
+    <button class="key" onclick="enterDigit('4')">4</button>
+    <button class="key" onclick="enterDigit('5')">5</button>
+    <button class="key" onclick="enterDigit('6')">6</button>
+    <button class="key" onclick="enterDigit('7')">7</button>
+    <button class="key" onclick="enterDigit('8')">8</button>
+    <button class="key" onclick="enterDigit('9')">9</button>
+    <button class="key" onclick="checkPassword()">✔</button>
+    <button class="key" onclick="enterDigit('0')">0</button>
+    <button class="key" onclick="deleteLast()">⌫</button>
+  </div>
+</div>
+<div id="notepadScreen" class="screen2">
+  <div class="notepad" style="text-align: center;">
+<h3 style="text-align: right; margin-top: 0;">📅 03 de Octubre 2025</h3>
+<h4 style="text-align: left; margin-bottom: 0;">💌 Mi Querido Niña Ale</h4>
+<p style="text-align: justify;">
+  Hola Buenas Tardes, Dias, Noches cual sea el momento que estes leyendo esto, espero 
+  que te encuentres bien corazón. No se como empezar porque es como escribir 
+  una carta, pero virtual jajaja, es raro pero lo intentaré.  
+</p>
+<p style="text-align: justify;">
+  Ya hace un tiempo que quería hacer esto, pero no estaba muy seguro de como hacerlo, y bueno,
+  pensé que una carta virtual sería algo diferente y especial .
+  Empezare diciendote que ya estamos a casi un año desde que me anime a escribrirte,
+  ese: "Alexandra?" sin esperar respuesta alguna, y mira la vida donde nos tiene ahora.
+  Como se dieron las cosas desde ahi, dos chiquillos saliendo, conociendose y que se fueron
+  gustando jajaja.
+
+  Se que todo esto del amor para ti puede ser raro, pero como dice mi profesor de matematica: 
+  "Te llevare de la manito" jajaja. Intentare seguir haciendo cosas para que usted sienta 
+  mariposas en la barriguita en vez de dolor, intentare apoyarte hsata tu me dejes apoyar
+  y sobretodo intentare darte lo mejor siempre, lo mejor de mi, porque si niña usted se
+  merece lo mejooooooor!!!.
+</p>
+<p style="text-align: justify;">
+  Bueno para ya ir acabando esta carta, decir que es la primera que escribo en toda mi vida.
+  Porque soy malo escribiendo este tipo de cosas porque solo digo bobadas.
+  PEEEEERO, esta sera una de muchas MAS CARTAS.
+</p>
+<p style="text-align: justify;">
+  Aca debe ir la despedida pero  no quiero despedirme, así que solo sera un "See you later".
+  Yo se que en un curso de escribir cartas yo solito me jalaria JAJAJAJA, pero se esta intentado.
+</p>
+<p style="text-align: justify;">
+  Ay mi niña, ay mi niña, esa frasesita "ay mi niña" ya se volvio muy 
+  recuerrente. Esa sera la premisa para la segunda carta, See you later.
+</p>
+<p style="text-align: justify;">
+  Recuerda, tienes que cuidarte, porque sino como cuidaras de los demas.
+</p>
+<p style="text-align: justify;"></p>
+  TE QUIERO, EN MAYUSCULAS ♡
+</p>
+    <button class="back-btn" onclick="goBack()">CERRAR</button>
+  </div>
+</div>
+
+<script>
+  function crearCorazones() {
+    const heartsContainer = document.querySelector('.hearts');
+    setInterval(() => {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = '❤';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.fontSize = (Math.random() * 20 + 10) + 'px';
+      heart.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => { heart.remove(); }, 8000);
+    }, 200);
+  }
+  crearCorazones();
+  const correctPassword = '150225'; // Cambia esto a la contraseña deseada
+  let input = '';
+  function enterDigit(digit) {
+    if (input.length < 6) {
+      input += digit;
+      updateDisplay();
+    }
+  }
+  function deleteLast() {
+    input = input.slice(0, -1);
+    updateDisplay();
+  }
+  function updateDisplay() {
+    document.getElementById('inputDisplay').textContent = input.padEnd(6, '•');
+  }
+  function checkPassword() {
+    if (input.length === 6) {
+      if (input === correctPassword) {
+        document.getElementById('passwordScreen').classList.remove('active');
+        document.getElementById('notepadScreen').classList.add('active');
+      } else {
+        alert('Contraseña incorrecta, intenta de nuevo');
+        input = '';
+        updateDisplay();
+      }
+    } else {
+      alert('Debes ingresar los 6 dígitos.');
+    }
+  }
+  function goBack() {
+    document.getElementById('notepadScreen').classList.remove('active');
+    document.getElementById('passwordScreen').classList.add('active');
+    input = '';
+    updateDisplay();
+  }
+</script>
+</body>
+</html>
